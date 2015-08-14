@@ -107,9 +107,9 @@ class AbstractContext(object):
 
         uri = create_uri_path(path)
         if uri:
-            uri = "%s://%s%s" % ('plugin', self._plugin_id.encode('utf-8'), uri)
+            uri = "%s://%s/%s/?qs=%s" % ('plugin', 'video', self._plugin_name.encode('utf-8'), uri)
         else:
-            uri = "%s://%s/" % ('plugin', self._plugin_id.encode('utf-8'))
+            uri = "%s://%s/%s/" % ('plugin', 'video', self._plugin_name.encode('utf-8'))
             pass
 
         if len(params) > 0:
@@ -125,7 +125,7 @@ class AbstractContext(object):
 
                 uri_params[param] = to_utf8(params[param])
                 pass
-            uri += '?' + urllib.urlencode(uri_params)
+            uri += '&' + urllib.urlencode(uri_params)
             pass
 
         return uri

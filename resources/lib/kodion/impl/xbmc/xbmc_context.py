@@ -39,7 +39,13 @@ class XbmcContext(AbstractContext):
         if override:
             self._uri = sys.argv[0]
             comps = urlparse.urlparse(self._uri)
-            self._path = urllib.unquote(comps.path).decode('utf-8')
+            query = urlparse.parse_qs(sys.argv[2][1:])
+            if 'qs' in query:
+                path = query['qs'][0] + '/'
+                path= path.replace('//','/')
+            else:
+                path = '/'
+            self._path = urllib.unquote(path).decode('utf-8')
 
             # after that try to get the params
             params = sys.argv[2][1:]
